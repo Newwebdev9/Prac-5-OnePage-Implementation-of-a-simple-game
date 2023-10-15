@@ -62,10 +62,36 @@ function play(playerChoice) {
   }
 }
 
+// function updateScore(scoreType) {
+//   const scoreElement = document.querySelector("." + scoreType + " h1");
+//   const currentScore = parseInt(scoreElement.textContent, 10);
+//   scoreElement.textContent = (currentScore + 1).toString();
+// }
+
+// Update the person's and computer's scores in local storage and on the page
 function updateScore(scoreType) {
   const scoreElement = document.querySelector("." + scoreType + " h1");
   const currentScore = parseInt(scoreElement.textContent, 10);
   scoreElement.textContent = (currentScore + 1).toString();
+
+  // Save the updated score in local storage
+  localStorage.setItem(scoreType, currentScore + 1);
+}
+
+// Function to get the scores from local storage and update the display
+function getScoresFromLocalStorage() {
+  const compScore = localStorage.getItem("comp-score");
+  const personScore = localStorage.getItem("person-score");
+
+  if (compScore) {
+    const compScoreElement = document.querySelector(".comp-score h1");
+    compScoreElement.textContent = compScore;
+  }
+
+  if (personScore) {
+    const personScoreElement = document.querySelector(".person-score h1");
+    personScoreElement.textContent = personScore;
+  }
 }
 
 function showSign() {
@@ -120,3 +146,5 @@ function showNextButton(flag) {
 
 // Call the showNextButton function when you need to check if the player has won
 showNextButton();
+// Call the function to get scores from local storage when the page loads
+getScoresFromLocalStorage();
